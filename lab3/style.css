@@ -34,3 +34,13 @@ body, html {
   font-size: 2rem;
   cursor: pointer;
 }
+
+.winner-cell {
+  background-color: #ffeb3b;   /* yellow pop */
+  animation: pulse 0.8s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.15); }
+}

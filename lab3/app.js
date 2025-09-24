@@ -1,3 +1,4 @@
+let winningLine = [];
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let gameOver = false;
@@ -8,6 +9,7 @@ function initializeGame() {
   currentPlayer = "X";
   gameOver = false;
   winner = null;
+  winningLine = [];         // <- clear any old winning cells
   renderBoard();
 }
 
@@ -15,6 +17,10 @@ function renderBoard() {
   const cells = document.querySelectorAll(".cell");
   cells.forEach((cell, i) => {
     cell.textContent = board[i];
+    cell.classList.remove("winner-cell");  // reset any old highlight
+    if (winningLine.includes(i)) {
+      cell.classList.add("winner-cell");   // add highlight to the 3 winning cells
+    }
   });
 
   const status = document.getElementById("status");
@@ -35,12 +41,14 @@ function checkWinner() {
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
       winner = board[a];
       gameOver = true;
+      winningLine = [a, b, c];   
       return;
     }
   }
   if (!board.includes("")) {
     winner = "tie";
     gameOver = true;
+    winningLine = [];            
   }
 }
 
